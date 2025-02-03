@@ -13,11 +13,19 @@ public class TestPositivo {
             try {
                 numeroPositivo.setNumeroMemorizzato(numero);
             }catch (NegativeException e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
                 //Inserimento controllato
-                numeroPositivo.setNumeroMemorizzato(Math.abs(numero)); //RunTimeException sottoClasse non obbligato alla gestione
+                try{
+                    numeroPositivo.setNumeroMemorizzato(Math.abs(numero)); //RunTimeException sottoClasse non obbligato alla gestione
+                } catch (IntervalloException ex) {
+                    System.err.println(ex.getMessage());
+                    numeroPositivo.setNumeroMemorizzato(0);
+                }
+            }catch (IntervalloException e) {
+                System.err.println(e.getMessage());
+                numeroPositivo.setNumeroMemorizzato(0);
             }catch (Exception e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }finally {
                 System.out.println("-----> NUMERO SALVATO : "+numeroPositivo.getNumeroMemorizzato());
             }
