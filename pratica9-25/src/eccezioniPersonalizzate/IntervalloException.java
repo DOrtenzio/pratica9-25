@@ -1,6 +1,6 @@
 package eccezioniPersonalizzate;
 
-public class IntervalloException extends IllegalArgumentException {
+public class IntervalloException extends NumericException {
     public IntervalloException() {
       super("Errore numero non compreso tra 1 e 30");
     }

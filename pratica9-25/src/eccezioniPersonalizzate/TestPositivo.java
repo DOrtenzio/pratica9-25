@@ -7,24 +7,45 @@ public class TestPositivo {
         Scanner in=new Scanner(System.in);
         NumeroPositivo numeroPositivo=new NumeroPositivo();
 
-        while (true){
+        while (true) {
             System.out.println("Inserisci il numero ↯");
-            int numero=Integer.parseInt(in.next());
+            int numero = Integer.parseInt(in.next());
             try {
                 numeroPositivo.setNumeroMemorizzato(numero);
-            }catch (NegativeException e){
+            } catch (NegativeException e) {
                 System.err.println(e.getMessage());
+
                 //Inserimento controllato
-                try{
+                try {
                     numeroPositivo.setNumeroMemorizzato(Math.abs(numero)); //RunTimeException sottoClasse non obbligato alla gestione
                 } catch (IntervalloException ex) {
                     System.err.println(ex.getMessage());
-                    numeroPositivo.setNumeroMemorizzato(0);
+                    try {
+                        numeroPositivo.setNumeroMemorizzato(0);
+                    } catch (NegativeException exc) {
+                        throw new RuntimeException(exc);
+                    } catch (IntervalloException exc) {
+                        throw new RuntimeException(exc);
+                    }
+                } catch (NumericException ex) {
+                    System.err.println(ex.getMessage());
                 }
-            }catch (IntervalloException e) {
+
+            } catch (IntervalloException e) {
                 System.err.println(e.getMessage());
-                numeroPositivo.setNumeroMemorizzato(0);
-            }catch (Exception e){
+
+                //Inserimento controllato
+                try {
+                    numeroPositivo.setNumeroMemorizzato(0);
+                } catch (NegativeException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IntervalloException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            } catch (NumericException e) {
+                System.err.println(e.getMessage());
+            } catch (Exception e){
                 System.err.println(e.getMessage());
             }finally {
                 System.out.println("-----> NUMERO SALVATO : "+numeroPositivo.getNumeroMemorizzato());

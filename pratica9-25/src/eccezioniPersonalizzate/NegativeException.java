@@ -1,6 +1,6 @@
 package eccezioniPersonalizzate;
 
-public class NegativeException extends IllegalArgumentException {
+public class NegativeException extends NumericException {
     public NegativeException(){
         super("Numero negativo");
     }
